@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Components.Bundle;
 import Language.Console;
 
 public class main {
@@ -722,9 +723,9 @@ public class main {
 		}
 	}
 	public static void main(String args[]) {
-		String[] TabsString = {"Points","Steals","Rebounds","Fouls","Edit"};
-		JPanel[] Tabs = {new pointsTable(),new stealsTable(),new reboundsTable(),new foulsTable(),new editTab()};
-		Color[] Foreground = {Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black};
+		String[] TabsString = {"Points","Steals","Rebounds","Fouls","Edit","Time"};
+		JPanel[] Tabs = {new pointsTable(),new stealsTable(),new reboundsTable(),new foulsTable(),new editTab(),new Bundle.TimeInfo()};
+		Color[] Foreground = {Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black};
 		Components.Tabs Tab = new Components.Tabs(TabsString, Tabs, Foreground, 500, 500);
 		JFrame win = new Components.Window(0, 0, 1000, 600, "Basketball Stats", new JPanel(), new JPanel(), new JPanel(), new JPanel(),Tab,new WindowAdapter() {
 	         
