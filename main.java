@@ -711,6 +711,20 @@ public class main {
 					}
 				}
 		    });
+		    p1.add(new JLabel());
+		    p1.add(new JLabel());
+		    p1.add(new JLabel());
+		    p1.add(new Components.Button(100, "Reset", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
+		    	@Override
+			  	public void mouseClicked(MouseEvent e) {
+		    		tname.setText("");
+		    		tPos.setText("");
+		    		tGame1.setText("");
+		    		tGame2.setText("");
+		    		tGame3.setText("");
+		    	}
+		    }));
+		    
 		    p2.add(buttonSave);
 		  
 		    add(p1, "North");
