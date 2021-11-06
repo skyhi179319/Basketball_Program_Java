@@ -949,7 +949,19 @@ public class main {
 	        }
 	    }
 	    public static void display(JLabel label) {
-	    	String display = hours + ":" + minutes + ":" + seconds;
+	    	String second = String.valueOf(seconds);
+	    	String minute = String.valueOf(minutes);
+	    	String hour = String.valueOf(hours);
+	    	if(seconds <=9) {
+	    		second = String.format("%02d", seconds);
+	    	}
+	    	if(minutes <=9) {
+	    		minute = String.format("%02d", minutes);
+	    	}
+	    	if(hours <=9) {
+	    		hour = String.format("%02d", hours);
+	    	}
+	    	String display = hour + ":" + minute + ":" + second;
 	    	label.setText(display);
 	    }
 	}
@@ -989,7 +1001,19 @@ public class main {
 		        }
 		    }
 		    public static void display(JLabel label) {
-		    	String display = hours + ":" + minutes + ":" + seconds;
+		    	String second = String.valueOf(seconds);
+		    	String minute = String.valueOf(minutes);
+		    	String hour = String.valueOf(hours);
+		    	if(seconds <=9) {
+		    		second = String.format("%02d", seconds);
+		    	}
+		    	if(minutes <=9) {
+		    		minute = String.format("%02d", minutes);
+		    	}
+		    	if(hours <=9) {
+		    		hour = String.format("%02d", hours);
+		    	}
+		    	String display = hour + ":" + minute + ":" + second;
 		    	label.setText(display);
 		    }
 		}
