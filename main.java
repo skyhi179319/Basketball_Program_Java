@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
+import java.util.Arrays;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import Components.Bundle;
-import Language.Console;
 
 public class main {
 	public static class Player{
@@ -127,6 +128,16 @@ public class main {
 			int points = Integer.parseInt(String.valueOf(table.getValueAt(6, 5)));
 			table.setValueAt(functions.returnAvg(points), 8, 5);
 		}
+		public static int returnMax(JTable table) {
+			String PG = String.valueOf(table.getValueAt(0, 5));
+			String SG = String.valueOf(table.getValueAt(1, 5));
+			String C = String.valueOf(table.getValueAt(2, 5));
+			String PF = String.valueOf(table.getValueAt(3, 5));
+			String SF = String.valueOf(table.getValueAt(4, 5));
+			int arr[] = {Integer.parseInt(PG), Integer.parseInt(SG), Integer.parseInt(C), Integer.parseInt(PF), Integer.parseInt(SF)};
+	        int max = Arrays.stream(arr).max().getAsInt();
+	        return max;
+		}
 	}
 	public static class pointsTable extends JPanel{
 		 public static JTable j;
@@ -136,7 +147,6 @@ public class main {
 		 public static Player PF = new Player("Carson","PF",15,13,17);
 		 public static Player SF = new Player("Ethan","SF",17,15,17);
 		 public pointsTable(){
-		    
 		    DefaultTableModel model = new DefaultTableModel();
 		    int Game1 = functions.returnGame1Points(PG,SG,C,PF,SF);
             int Game2 = functions.returnGame2Points(PG,SG,C,PF,SF);
@@ -174,6 +184,21 @@ public class main {
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
 			super.show();
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(1, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(2, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(3, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(4, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
 		}
 
 	}
@@ -223,6 +248,21 @@ public class main {
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
 			super.show();
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(1, 5)))) {
+				j.addRowSelectionInterval(1, 1);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(2, 5)))) {
+				j.addRowSelectionInterval(2, 2);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(3, 5)))) {
+				j.addRowSelectionInterval(3, 3);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(4, 5)))) {
+				j.addRowSelectionInterval(4, 4);
+			}
 		}
 		
 	}
@@ -271,6 +311,21 @@ public class main {
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
 			super.show();
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(1, 5)))) {
+				j.addRowSelectionInterval(1, 1);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(2, 5)))) {
+				j.addRowSelectionInterval(2, 2);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(3, 5)))) {
+				j.addRowSelectionInterval(3, 3);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(4, 5)))) {
+				j.addRowSelectionInterval(4, 4);
+			}
 		}
 	}
 	public static class foulsTable extends JPanel{
@@ -318,6 +373,21 @@ public class main {
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
 			super.show();
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
+				j.addRowSelectionInterval(0, 0);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(1, 5)))) {
+				j.addRowSelectionInterval(1, 1);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(2, 5)))) {
+				j.addRowSelectionInterval(2, 2);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(3, 5)))) {
+				j.addRowSelectionInterval(3, 3);
+			}
+			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(4, 5)))) {
+				j.addRowSelectionInterval(4, 4);
+			}
 		}
 	}
 	public static class editTab extends JPanel{
@@ -401,6 +471,67 @@ public class main {
 					tGame1.selectAll();
 					tGame2.selectAll();
 					tGame3.selectAll();
+					if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(0, 5)))) {
+						pointsTable.j.removeRowSelectionInterval(0, 0);
+					}
+					if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(1, 5)))) {
+						pointsTable.j.removeRowSelectionInterval(1, 1);
+					}
+					if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(2, 5)))) {
+						pointsTable.j.removeRowSelectionInterval(2, 2);
+					}
+					if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(3, 5)))) {
+						pointsTable.j.removeRowSelectionInterval(3, 3);
+					}
+					if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(4, 5)))) {
+						pointsTable.j.removeRowSelectionInterval(4, 4);
+					}
+					if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(0, 5)))) {
+						stealsTable.j.removeRowSelectionInterval(0, 0);
+					}
+					if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(1, 5)))) {
+						stealsTable.j.removeRowSelectionInterval(1, 1);
+					}
+					if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(2, 5)))) {
+						stealsTable.j.removeRowSelectionInterval(2, 2);
+					}
+					if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(3, 5)))) {
+						stealsTable.j.removeRowSelectionInterval(3, 3);
+					}
+					if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(4, 5)))) {
+						stealsTable.j.removeRowSelectionInterval(4, 4);
+					}
+					if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(0, 5)))) {
+						reboundsTable.j.removeRowSelectionInterval(0, 0);
+					}
+					if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(1, 5)))) {
+						reboundsTable.j.removeRowSelectionInterval(1, 1);
+					}
+					if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(2, 5)))) {
+						reboundsTable.j.removeRowSelectionInterval(2, 2);
+					}
+					if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(3, 5)))) {
+						reboundsTable.j.removeRowSelectionInterval(3, 3);
+					}
+					if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(4, 5)))) {
+						reboundsTable.j.removeRowSelectionInterval(4, 4);
+					}
+					if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(0, 5)))) {
+						foulsTable.j.removeRowSelectionInterval(0, 0);
+					}
+					if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(1, 5)))) {
+						foulsTable.j.removeRowSelectionInterval(1, 1);
+					}
+					if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(2, 5)))) {
+						foulsTable.j.removeRowSelectionInterval(2, 2);
+					}
+					if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(3, 5)))) {
+						foulsTable.j.removeRowSelectionInterval(3, 3);
+					}
+					if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(4, 5)))) {
+						foulsTable.j.removeRowSelectionInterval(4, 4);
+					}
+					
 					if(points.isSelected() == true) {
 						if(tPos.getSelectedText().equals("PG") || tPos.getSelectedText() == "pg") {
 							main.Player.changeName(pointsTable.j, 0, tname.getSelectedText());
@@ -476,6 +607,21 @@ public class main {
 							main.functions.changeGame2Points(pointsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(pointsTable.j);
+						}
+						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(0, 5)))) {
+							pointsTable.j.addRowSelectionInterval(0, 0);
+						}
+						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(1, 5)))) {
+							pointsTable.j.addRowSelectionInterval(1, 1);
+						}
+						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(2, 5)))) {
+							pointsTable.j.addRowSelectionInterval(2, 2);
+						}
+						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(3, 5)))) {
+							pointsTable.j.addRowSelectionInterval(3, 3);
+						}
+						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(4, 5)))) {
+							pointsTable.j.addRowSelectionInterval(4, 4);
 						}
 					}
 					if(steals.isSelected() == true) {
@@ -554,6 +700,21 @@ public class main {
 							main.functions.changeGame3Points(stealsTable.j);
 							main.functions.changeAVG(stealsTable.j);
 						}
+						if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(0, 5)))) {
+							stealsTable.j.addRowSelectionInterval(0, 0);
+						}
+						if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(1, 5)))) {
+							pointsTable.j.addRowSelectionInterval(1, 1);
+						}
+						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(2, 5)))) {
+							stealsTable.j.addRowSelectionInterval(2, 2);
+						}
+						if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(3, 5)))) {
+							stealsTable.j.addRowSelectionInterval(3, 3);
+						}
+						if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(4, 5)))) {
+							stealsTable.j.addRowSelectionInterval(4, 4);
+						}
 					}
 					if(rebounds.isSelected() == true) {
 						if(tPos.getSelectedText().equals("PG") || tPos.getSelectedText() == "pg") {
@@ -631,6 +792,21 @@ public class main {
 							main.functions.changeGame3Points(reboundsTable.j);
 							main.functions.changeAVG(reboundsTable.j);
 						}
+						if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(0, 5)))) {
+							stealsTable.j.addRowSelectionInterval(0, 0);
+						}
+						if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(1, 5)))) {
+							reboundsTable.j.addRowSelectionInterval(1, 1);
+						}
+						if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(2, 5)))) {
+							reboundsTable.j.addRowSelectionInterval(2, 2);
+						}
+						if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(3, 5)))) {
+							reboundsTable.j.addRowSelectionInterval(3, 3);
+						}
+						if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(4, 5)))) {
+							reboundsTable.j.addRowSelectionInterval(4, 4);
+						}
 					}
 					if(fouls.isSelected() == true) {
 						if(tPos.getSelectedText().equals("PG") || tPos.getSelectedText() == "pg") {
@@ -707,6 +883,21 @@ public class main {
 							main.functions.changeGame2Points(foulsTable.j);
 							main.functions.changeGame3Points(foulsTable.j);
 							main.functions.changeAVG(foulsTable.j);
+						}
+						if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(0, 5)))) {
+							stealsTable.j.addRowSelectionInterval(0, 0);
+						}
+						if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(1, 5)))) {
+							foulsTable.j.addRowSelectionInterval(1, 1);
+						}
+						if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(2, 5)))) {
+							foulsTable.j.addRowSelectionInterval(2, 2);
+						}
+						if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(3, 5)))) {
+							foulsTable.j.addRowSelectionInterval(3, 3);
+						}
+						if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(4, 5)))) {
+							foulsTable.j.addRowSelectionInterval(4, 4);
 						}
 					}
 				}
