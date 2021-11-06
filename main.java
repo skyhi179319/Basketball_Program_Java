@@ -408,25 +408,25 @@ public class main {
 		  
 		    JButton buttonSave;
 		  
-		    lName = new JLabel("NAME");
+		    lName = new Components.Label("NAME:", Colors.colors.darkpurple);
 		  
-		    tname = new JTextField(20);
+		    tname = new Components.Textfield(20, Colors.colors.purple, Colors.colors.Black);
 		    
-		    lPos = new JLabel("POS");
+		    lPos = new Components.Label("POS:", Colors.colors.darkpurple);
 			  
-		    tPos = new JTextField(20);
+		    tPos = new Components.Textfield(20, Colors.colors.purple, Colors.colors.Black);
 		    
-		    lGame1 = new JLabel("GAME 1");
+		    lGame1 = new Components.Label("GAME 1:", Colors.colors.darkpurple);
 		  
-		    tGame1 = new JTextField(20);
+		    tGame1 = new Components.Textfield(20, Colors.colors.purple, Colors.colors.Black);
 		  
-		    lGame2 = new JLabel("GAME 2");
+		    lGame2 = new Components.Label("GAME 2:", Colors.colors.darkpurple);
 		  
-		    tGame2 = new JTextField(20);
+		    tGame2 = new Components.Textfield(20, Colors.colors.purple, Colors.colors.Black);new JTextField(20);
 		  
-		    lGame3 = new JLabel("GAME 3");
+		    lGame3 = new Components.Label("GAME 3:", Colors.colors.darkpurple);
 		  
-		    tGame3 = new JTextField(20);
+		    tGame3 = new Components.Textfield(20, Colors.colors.purple, Colors.colors.Black);
 		  
 		    p1.add(lName);
 		  
