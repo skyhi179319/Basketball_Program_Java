@@ -1041,6 +1041,14 @@ public class main {
 					myTimer.stop();
 				}
 			}));
+			super.add(new Components.Button(24, "Restart", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					gameTime.runtime.seconds = -1;
+					gameTime.runtime.minutes = 0;
+					gameTime.runtime.hours = 0;
+				}
+			}));
 		}
 	}
 	public static void main(String args[]) {
