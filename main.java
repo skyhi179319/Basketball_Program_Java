@@ -6,9 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 
@@ -25,7 +22,6 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 import Components.Bundle;
-import Language.Application;
 
 public class main {
 	public static class Player{
@@ -974,10 +970,59 @@ public class main {
 		}
         
 	}
+	public static class gameTime extends JPanel{
+		public static class runtime{
+			private static int i = 0;
+			public static int seconds = 0;
+			public static int minutes = 0;
+			public static int hours = 0;
+		    public static void run()
+		    {
+		        ++seconds;
+		        if(seconds == 60) {
+		        	seconds = 0;
+		        	minutes = minutes + 1;
+		        }
+		        if(minutes == 60) {
+		        	minutes = 0;
+		        	hours = hours + 1;
+		        }
+		    }
+		    public static void display(JLabel label) {
+		    	String display = hours + ":" + minutes + ":" + seconds;
+		    	label.setText(display);
+		    }
+		}
+		public gameTime() {
+			JLabel timeLable = new Components.Label("Time: ", Colors.colors.darkpurple);
+			JLabel time = new Components.Label("", Colors.colors.purple);
+			super.add(timeLable);
+			super.add(time);
+			Timer myTimer = new Timer(1000, new ActionListener(){
+			    @Override
+			    public void actionPerformed(ActionEvent e) {
+			    	gameTime.runtime.run();
+			    	gameTime.runtime.display(time);
+			    }
+			});
+			super.add(new Components.Button(28, "Start", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					myTimer.start();
+				}
+			}));
+			super.add(new Components.Button(28, "Stop", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					myTimer.stop();
+				}
+			}));
+		}
+	}
 	public static void main(String args[]) {
-		String[] TabsString = {"Points","Steals","Rebounds","Fouls","Edit","Time","Runtime"};
-		JPanel[] Tabs = {new pointsTable(),new stealsTable(),new reboundsTable(),new foulsTable(),new editTab(),new Bundle.TimeInfo(),new runtimeClock()};
-		Color[] Foreground = {Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black};
+		String[] TabsString = {"Points","Steals","Rebounds","Fouls","Edit","Game Time","Time","Runtime"};
+		JPanel[] Tabs = {new pointsTable(),new stealsTable(),new reboundsTable(),new foulsTable(),new editTab(),new gameTime(),new Bundle.TimeInfo(),new runtimeClock()};
+		Color[] Foreground = {Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black,Colors.colors.Black};
 		Components.Tabs Tab = new Components.Tabs(TabsString, Tabs, Foreground, 500, 500);
 		JFrame win = new Components.Window(0, 0, 1000, 600, "Basketball Stats", new JPanel(), new JPanel(), new JPanel(), new JPanel(),Tab,new WindowAdapter() {
 	         
