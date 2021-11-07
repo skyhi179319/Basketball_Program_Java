@@ -4,19 +4,22 @@ import javax.swing.JLabel;
 
 public class Sys{
 	public static class runtime{
+		public static int seconds = 0;
+		public static int minutes = 0;
+		public static int hours = 0;
+		public static void run()
+	    {
+	        ++seconds;
+	        if(seconds == 60) {
+	        	seconds = 0;
+	        	minutes = minutes + 1;
+	        }
+	        if(minutes == 60) {
+	        	minutes = 0;
+	        	hours = hours + 1;
+	        }
+	    }
 		public static void display(JLabel label) {
-			int seconds = 0;
-			int minutes = 0;
-			int hours = 0;
-		    ++seconds;
-		    if(seconds == 60) {
-		    	seconds = 0;
-		    	minutes = minutes + 1;
-		    }
-		    if(minutes == 60) {
-		    	minutes = 0;
-		    	hours = hours + 1;
-		    }
 			String second = String.valueOf(seconds);
 			String minute = String.valueOf(minutes);
 			String hour = String.valueOf(hours);
@@ -33,10 +36,6 @@ public class Sys{
 			label.setText(display);
 		}
 		public static String returnString() {
-			int seconds = 0;
-			int minutes = 0;
-			int hours = 0;
-		    ++seconds;
 		    if(seconds == 60) {
 		    	seconds = 0;
 		    	minutes = minutes + 1;
