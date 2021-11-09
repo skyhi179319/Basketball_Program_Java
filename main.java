@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -6,22 +7,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 import Components.Bundle;
+import Components.Menu.menuItem;
 
 public class main {
 	public static class Player{
@@ -551,6 +557,8 @@ public class main {
 							main.functions.changeGame2Points(pointsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(pointsTable.j);
+							console.writeLine("Changed PG - Points");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SG") || tPos.getSelectedText() == "sg") {
 							main.Player.changeName(pointsTable.j, 1, tname.getSelectedText());
@@ -566,6 +574,8 @@ public class main {
 							main.functions.changeGame2Points(pointsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(pointsTable.j);
+							console.writeLine("Changed SG - Points");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("C") || tPos.getSelectedText() == "c") {
 							main.Player.changeName(pointsTable.j, 2, tname.getSelectedText());
@@ -581,6 +591,8 @@ public class main {
 							main.functions.changeGame2Points(pointsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(pointsTable.j);
+							console.writeLine("Changed C - Points");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("PF") || tPos.getSelectedText() == "pf") {
 							main.Player.changeName(pointsTable.j, 3, tname.getSelectedText());
@@ -596,6 +608,8 @@ public class main {
 							main.functions.changeGame2Points(pointsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(pointsTable.j);
+							console.writeLine("Changed PF - Points");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SF") || tPos.getSelectedText() == "sf") {
 							main.Player.changeName(pointsTable.j, 4, tname.getSelectedText());
@@ -611,6 +625,8 @@ public class main {
 							main.functions.changeGame2Points(pointsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(pointsTable.j);
+							console.writeLine("Changed SF - Points");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(functions.returnMax(pointsTable.j) == Integer.valueOf(String.valueOf(pointsTable.j.getValueAt(0, 5)))) {
 							pointsTable.j.addRowSelectionInterval(0, 0);
@@ -643,6 +659,8 @@ public class main {
 							main.functions.changeGame2Points(stealsTable.j);
 							main.functions.changeGame3Points(stealsTable.j);
 							main.functions.changeAVG(stealsTable.j);
+							console.writeLine("Changed PG - Steals");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SG") || tPos.getSelectedText() == "sg") {
 							main.Player.changeName(stealsTable.j, 1, tname.getSelectedText());
@@ -658,6 +676,8 @@ public class main {
 							main.functions.changeGame2Points(stealsTable.j);
 							main.functions.changeGame3Points(pointsTable.j);
 							main.functions.changeAVG(stealsTable.j);
+							console.writeLine("Changed SG - Steals");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("C") || tPos.getSelectedText() == "c") {
 							main.Player.changeName(stealsTable.j, 2, tname.getSelectedText());
@@ -673,6 +693,8 @@ public class main {
 							main.functions.changeGame2Points(stealsTable.j);
 							main.functions.changeGame3Points(stealsTable.j);
 							main.functions.changeAVG(stealsTable.j);
+							console.writeLine("Changed C - Steals");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("PF") || tPos.getSelectedText() == "pf") {
 							main.Player.changeName(stealsTable.j, 3, tname.getSelectedText());
@@ -688,6 +710,8 @@ public class main {
 							main.functions.changeGame2Points(stealsTable.j);
 							main.functions.changeGame3Points(stealsTable.j);
 							main.functions.changeAVG(stealsTable.j);
+							console.writeLine("Changed PF - Steals");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SF") || tPos.getSelectedText() == "sf") {
 							main.Player.changeName(stealsTable.j, 4, tname.getSelectedText());
@@ -703,6 +727,8 @@ public class main {
 							main.functions.changeGame2Points(stealsTable.j);
 							main.functions.changeGame3Points(stealsTable.j);
 							main.functions.changeAVG(stealsTable.j);
+							console.writeLine("Changed SF - Steals");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(functions.returnMax(stealsTable.j) == Integer.valueOf(String.valueOf(stealsTable.j.getValueAt(0, 5)))) {
 							stealsTable.j.addRowSelectionInterval(0, 0);
@@ -735,6 +761,8 @@ public class main {
 							main.functions.changeGame2Points(reboundsTable.j);
 							main.functions.changeGame3Points(reboundsTable.j);
 							main.functions.changeAVG(reboundsTable.j);
+							console.writeLine("Changed PG - Rebounds");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SG") || tPos.getSelectedText() == "sg") {
 							main.Player.changeName(reboundsTable.j, 1, tname.getSelectedText());
@@ -750,6 +778,8 @@ public class main {
 							main.functions.changeGame2Points(reboundsTable.j);
 							main.functions.changeGame3Points(reboundsTable.j);
 							main.functions.changeAVG(reboundsTable.j);
+							console.writeLine("Changed SG - Rebounds");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("C") || tPos.getSelectedText() == "c") {
 							main.Player.changeName(reboundsTable.j, 2, tname.getSelectedText());
@@ -765,6 +795,8 @@ public class main {
 							main.functions.changeGame2Points(reboundsTable.j);
 							main.functions.changeGame3Points(reboundsTable.j);
 							main.functions.changeAVG(reboundsTable.j);
+							console.writeLine("Changed C - Rebounds");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("PF") || tPos.getSelectedText() == "pf") {
 							main.Player.changeName(reboundsTable.j, 3, tname.getSelectedText());
@@ -780,6 +812,8 @@ public class main {
 							main.functions.changeGame2Points(reboundsTable.j);
 							main.functions.changeGame3Points(reboundsTable.j);
 							main.functions.changeAVG(reboundsTable.j);
+							console.writeLine("Changed PF - Rebounds");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SF") || tPos.getSelectedText() == "sf") {
 							main.Player.changeName(reboundsTable.j, 4, tname.getSelectedText());
@@ -795,6 +829,8 @@ public class main {
 							main.functions.changeGame2Points(reboundsTable.j);
 							main.functions.changeGame3Points(reboundsTable.j);
 							main.functions.changeAVG(reboundsTable.j);
+							console.writeLine("Changed SF - Rebounds");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(functions.returnMax(reboundsTable.j) == Integer.valueOf(String.valueOf(reboundsTable.j.getValueAt(0, 5)))) {
 							stealsTable.j.addRowSelectionInterval(0, 0);
@@ -827,6 +863,8 @@ public class main {
 							main.functions.changeGame2Points(foulsTable.j);
 							main.functions.changeGame3Points(foulsTable.j);
 							main.functions.changeAVG(foulsTable.j);
+							console.writeLine("Changed PG - Fouls");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SG") || tPos.getSelectedText() == "sg") {
 							main.Player.changeName(foulsTable.j, 1, tname.getSelectedText());
@@ -842,6 +880,8 @@ public class main {
 							main.functions.changeGame2Points(foulsTable.j);
 							main.functions.changeGame3Points(foulsTable.j);
 							main.functions.changeAVG(foulsTable.j);
+							console.writeLine("Changed SG - Fouls");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("C") || tPos.getSelectedText() == "c") {
 							main.Player.changeName(foulsTable.j, 2, tname.getSelectedText());
@@ -857,6 +897,8 @@ public class main {
 							main.functions.changeGame2Points(foulsTable.j);
 							main.functions.changeGame3Points(foulsTable.j);
 							main.functions.changeAVG(foulsTable.j);
+							console.writeLine("Changed C - Fouls");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("PF") || tPos.getSelectedText() == "pf") {
 							main.Player.changeName(foulsTable.j, 3, tname.getSelectedText());
@@ -872,6 +914,8 @@ public class main {
 							main.functions.changeGame2Points(foulsTable.j);
 							main.functions.changeGame3Points(foulsTable.j);
 							main.functions.changeAVG(foulsTable.j);
+							console.writeLine("Changed PF - Fouls");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(tPos.getSelectedText().equals("SF") || tPos.getSelectedText() == "sf") {
 							main.Player.changeName(foulsTable.j, 4, tname.getSelectedText());
@@ -887,6 +931,8 @@ public class main {
 							main.functions.changeGame2Points(foulsTable.j);
 							main.functions.changeGame3Points(foulsTable.j);
 							main.functions.changeAVG(foulsTable.j);
+							console.writeLine("Changed SF - Fouls");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 						if(functions.returnMax(foulsTable.j) == Integer.valueOf(String.valueOf(foulsTable.j.getValueAt(0, 5)))) {
 							stealsTable.j.addRowSelectionInterval(0, 0);
@@ -931,9 +977,42 @@ public class main {
 		    this.setSize(400, 180);
 		}
 	}
+	public static class runtime{
+		private static int i = 0;
+		public static int seconds = 0;
+		public static int minutes = 0;
+		public static int hours = 0;
+	    public static void run()
+	    {
+	        ++seconds;
+	        if(seconds == 60) {
+	        	seconds = 0;
+	        	minutes = minutes + 1;
+	        }
+	        if(minutes == 60) {
+	        	minutes = 0;
+	        	hours = hours + 1;
+	        }
+	    }
+	    public static void display(JLabel label) {
+	    	String second = String.valueOf(seconds);
+	    	String minute = String.valueOf(minutes);
+	    	String hour = String.valueOf(hours);
+	    	if(seconds <=9) {
+	    		second = String.format("%02d", seconds);
+	    	}
+	    	if(minutes <=9) {
+	    		minute = String.format("%02d", minutes);
+	    	}
+	    	if(hours <=9) {
+	    		hour = String.format("%02d", hours);
+	    	}
+	    	String display = hour + ":" + minute + ":" + second;
+	    	label.setText(display);
+	    }
+	}
 	public static class runtimeClock extends JPanel{
 		public runtimeClock() {
-			Language.Sys.runtime runtime = new Language.Sys.runtime();
 			JLabel timeLable = new Components.Label("Time: ", Colors.colors.darkpurple);
 			JLabel time = new Components.Label("", Colors.colors.purple);
 			super.add(timeLable);
@@ -951,7 +1030,7 @@ public class main {
 	}
 	public static class gameTime extends JPanel{
 		public gameTime() {
-			Language.Sys.runtime runtime = new Language.Sys.runtime();
+			Language.Sys.runtime runtime2 = new Language.Sys.runtime();
 			JLabel timeLable = new Components.Label("Time: ", Colors.colors.darkpurple);
 			JLabel time = new Components.Label("", Colors.colors.purple);
 			super.add(timeLable);
@@ -959,30 +1038,115 @@ public class main {
 			Timer myTimer = new Timer(1000, new ActionListener(){
 			    @Override
 			    public void actionPerformed(ActionEvent e) {
-			    	runtime.run();
-			    	runtime.display(time);
+			    	runtime2.run();
+			    	runtime2.display(time);
 			    }
 			});
 			super.add(new Components.Button(28, "Start", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					myTimer.start();
+					console.writeLine("Started game time");
+					console.updateConsole(consoleApp.consoleDisplay);
 				}
 			}));
 			super.add(new Components.Button(28, "Stop", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					myTimer.stop();
+					console.writeLine("Stopped game time");
+					console.updateConsole(consoleApp.consoleDisplay);
 				}
 			}));
 			super.add(new Components.Button(24, "Restart", true, getForeground(), Colors.colors.Black, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					runtime.seconds = -1;
-					runtime.minutes = 0;
-					runtime.hours = 0;
+					runtime2.seconds = -1;
+					runtime2.minutes = 0;
+					runtime2.hours = 0;
+					console.writeLine("Game time has been rest");
+					console.updateConsole(consoleApp.consoleDisplay);
 				}
 			}));
+		}
+	}
+	public static class console{
+		public static ArrayList<String> consoleArray = new ArrayList<String>();
+		public static void writeLine(String text) {
+			consoleArray.add(text);
+			System.out.print(consoleArray);
+		}
+		public static void updateConsole(JTextArea Console) {
+			String CurrentText = Console.getText();
+			Console.setText("");
+			for (String i:  consoleArray) {
+				consoleApp.consoleDisplay.append("\n" + i);
+			}
+		}
+		public static void clearConsole() {
+			consoleArray.clear();
+			writeLine("Cleared console");
+			updateConsole(consoleApp.consoleDisplay);
+		}
+	}
+	public static class consoleApp extends JFrame{
+		public static Components.Textarea consoleDisplay = new Components.Textarea(40, 20, Colors.colors.Black, Colors.colors.gold);
+		public consoleApp() {
+			super.setTitle("Console");
+			super.setBounds(50, 50, 700, 400);
+			JPanel consoleArea = new JPanel();
+			consoleDisplay.disable();
+			consoleArea.add(consoleDisplay);
+			super.getContentPane().add(consoleArea, BorderLayout.CENTER);
+			super.show();
+		}
+	}
+	public static class playbook extends JFrame{
+		static int numberOfPlays = 2;
+		static DefaultTableModel model = new DefaultTableModel();
+		public static JTable j;
+		static class methods{
+			static Object[] createPlay(String name, String type) {
+				Object[] play = {name,type};
+				return play;
+			}
+			static void addData() {
+				model.addRow(createPlay("Fresno","Offense"));
+				model.addRow(createPlay("23","Defense"));
+			}
+			static void clearData(int row) {
+				model.removeRow(row);
+			}
+		}
+		public playbook() {
+			super.setTitle("Playbook");
+			super.setBounds(50, 50, 700, 400);
+			String[] Columns = {"Play Name","Type"};
+			j = new JTable(model) {
+		        public boolean editCellAt(int row, int column, java.util.EventObject e) {
+		        return false;
+		     }
+		    };
+		    for (int i = 0; i < Columns.length; i++) {
+		    	if(model.getColumnCount() <= 1) {
+		    		model.addColumn(Columns[i]);
+		    	}
+		    	else {
+		    		
+		    	}
+		    }
+		    if(model.getRowCount() != numberOfPlays) {
+		    	for(int i = 0; i < model.getRowCount(); i++) {
+		    		methods.clearData(i);
+		    	}
+		    	methods.addData();
+		    }
+		    console.writeLine("Added playbook data");
+			console.updateConsole(consoleApp.consoleDisplay);
+		    JScrollPane sp = new JScrollPane(j);
+			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
+			super.getContentPane().add(sp, BorderLayout.CENTER);
+			super.show();
 		}
 	}
 	public static void main(String args[]) {
@@ -993,5 +1157,36 @@ public class main {
 		JFrame win = new Components.Window(0, 0, 1000, 600, "Basketball Stats", new JPanel(), new JPanel(), new JPanel(), new JPanel(),Tab,new WindowAdapter() {
 	         
 	    });
+		/* JMenu */
+		Components.Menu.menuItem[] features = {new menuItem("Playbook", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				console.writeLine("Loaded playbook");
+				console.updateConsole(consoleApp.consoleDisplay);
+				new playbook();
+			}
+		}),new menuItem("Console", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				console.writeLine("Loaded playbook");
+				console.updateConsole(consoleApp.consoleDisplay);
+				new consoleApp();
+			}
+		})};
+		Components.Menu.menuItem[] consoleOptions = {new menuItem("Clear", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				console.clearConsole();
+			}
+		})};
+		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions)};
+		win.setJMenuBar(new Components.Menu.menuBar(items));
+		new consoleApp();
+		console.writeLine("Loaded program and console");
+		console.writeLine("Loaded players");
+		console.updateConsole(consoleApp.consoleDisplay);
 	}
 }
