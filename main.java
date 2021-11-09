@@ -27,6 +27,7 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
 import Components.Bundle;
+import Components.Menu.menu;
 import Components.Menu.menuItem;
 
 public class main {
@@ -1114,6 +1115,9 @@ public class main {
 				model.addRow(createPlay("Fresno","Offense"));
 				model.addRow(createPlay("23","Defense"));
 			}
+			public static void addData(Object[] data) {
+				model.addRow(data);
+			}
 			static void clearData(int row) {
 				model.removeRow(row);
 			}
@@ -1182,7 +1186,43 @@ public class main {
 				console.clearConsole();
 			}
 		})};
-		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions)};
+		Components.Menu.menuItem[] playbookOptions = {new menuItem("Add", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ArrayList<String> filter = new ArrayList<String>();
+				JPanel addDataPanel = new JPanel();
+				Components.Label name = new Components.Label("Name:", Colors.colors.Black);
+				Components.Label type = new Components.Label("Type:", Colors.colors.Black);
+				Components.Textfield nameField = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+				Components.Textfield typeField = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+				addDataPanel.add(name);
+				addDataPanel.add(nameField);
+				addDataPanel.add(type);
+				addDataPanel.add(typeField);
+				JPanel filterPanel = new JPanel();
+				Components.Label filterText = new Components.Label("", Colors.colors.Black);
+				filterPanel.add(filterText);
+				addDataPanel.add(new Components.Button(28, "Add", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if(filter.contains(nameField.getText()) == true) {
+							filterText.setText("Play already in table");
+							filterText.setForeground(Colors.colors.brightred);
+						}
+						else {
+							Object[] data = {nameField.getText(),typeField.getText()};
+							filter.add(nameField.getText());
+							playbook.methods.addData(data);
+							filterText.setText("Play added to table");
+							filterText.setForeground(Colors.colors.green);
+						}
+					}
+				}));
+				JFrame data = new Components.Window(50, 100, 500, 200, "Add Data", new JPanel(), new JPanel(), filterPanel, new JPanel(), addDataPanel);
+			}
+		})};
+		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions), new Components.Menu.menu("Playbook", playbookOptions)};
 		win.setJMenuBar(new Components.Menu.menuBar(items));
 		new consoleApp();
 		console.writeLine("Loaded program and console");
