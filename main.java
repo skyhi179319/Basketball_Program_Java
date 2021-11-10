@@ -26,7 +26,9 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
+import Colors.colors;
 import Components.Bundle;
+import Components.Label;
 import Components.Menu.menu;
 import Components.Menu.menuItem;
 
@@ -1104,11 +1106,13 @@ public class main {
 	}
 	public static class playbook extends JFrame{
 		static int numberOfPlays = 2;
+		public static ArrayList<String> playNames = new ArrayList<String>();
 		static DefaultTableModel model = new DefaultTableModel();
 		public static JTable j;
 		static class methods{
 			static Object[] createPlay(String name, String type) {
 				Object[] play = {name,type};
+				playNames.add(name);
 				return play;
 			}
 			static void addData() {
@@ -1151,6 +1155,49 @@ public class main {
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.getContentPane().add(sp, BorderLayout.CENTER);
 			super.show();
+		}
+	}
+	public static class playDisplay extends JFrame{
+		public playDisplay() {
+			playbook.methods.addData();
+			JPanel display = new JPanel();
+			Components.Label text = new Components.Label("",Colors.colors.Black);
+			text.setFont(text.getFont().deriveFont(108.0f));
+			display.add(text);
+			JPanel buttons = new JPanel();
+			JScrollPane buttonPane = new JScrollPane(buttons);
+			for(int i = 0; i < playbook.playNames.size(); i++) {
+				String TextDisplay = playbook.playNames.get(i);
+				int size = 0;
+				if(TextDisplay.length() == 2) {
+					size = 30;
+				}
+				else if(TextDisplay.length() == 3) {
+					size = 29;
+				}
+				else if(TextDisplay.length() == 4) {
+					size = 28;
+				}
+				else if(TextDisplay.length() == 5) {
+					size = 26;
+				}
+				else if(TextDisplay.length() == 6) {
+					size = 24;
+				}
+				else if(TextDisplay.length() == 7) {
+					size = 23;
+				}
+				else if(TextDisplay.length() == 8) {
+					size = 20;
+				}
+				buttons.add(new Components.Button(size, TextDisplay, true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						text.setText(TextDisplay);
+					}
+				}));
+			}
+			JFrame displayWin = new Components.Window(50, 100, 1000, 700, "Display", new JPanel(), new JPanel(), buttons, new JPanel(), display);
 		}
 	}
 	public static void main(String args[]) {
@@ -1220,6 +1267,11 @@ public class main {
 					}
 				}));
 				JFrame data = new Components.Window(50, 100, 500, 200, "Add Data", new JPanel(), new JPanel(), filterPanel, new JPanel(), addDataPanel);
+			}
+		}),new menuItem("Display", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new playDisplay();
 			}
 		})};
 		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions), new Components.Menu.menu("Playbook", playbookOptions)};
