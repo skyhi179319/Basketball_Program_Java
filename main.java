@@ -1165,7 +1165,6 @@ public class main {
 			text.setFont(text.getFont().deriveFont(108.0f));
 			display.add(text);
 			JPanel buttons = new JPanel();
-			JScrollPane buttonPane = new JScrollPane(buttons);
 			for(int i = 0; i < playbook.playNames.size(); i++) {
 				String TextDisplay = playbook.playNames.get(i);
 				int size = 0;
@@ -1198,6 +1197,176 @@ public class main {
 				}));
 			}
 			JFrame displayWin = new Components.Window(50, 100, 1000, 700, "Display", new JPanel(), new JPanel(), buttons, new JPanel(), display);
+		}
+	}
+	public static class scoring extends JFrame{
+		static int homePoints = 0;
+		static int awayPoints = 0;
+		static String homeName = "";
+		static String awayName = "";
+		static JLabel homeTeamNameLabel = new JLabel();
+		static JLabel awayTeamNameLabel = new JLabel();
+		static class functions{
+			static String returnHomeName(String name) {
+				return name;
+			}
+			static String returnAwayName(String name) {
+				return name;
+			}
+			static void addHomePoints(int points) {
+				homePoints = homePoints + points;
+				homeTeamNameLabel.setText(homeName + ": " + Integer.toString(homePoints));
+			}
+			static void addAwayPoints(int points) {
+				awayPoints = awayPoints + points;
+				awayTeamNameLabel.setText(awayName + ": " + Integer.toString(awayPoints));
+			}
+			static void resetData() {
+				homePoints = 0;
+				awayPoints = 0;
+				homeTeamNameLabel.setText(homeName + ": " + Integer.toString(homePoints));
+				awayTeamNameLabel.setText(awayName + ": " + Integer.toString(awayPoints));
+			}
+		}
+		public scoring() {
+			/* Enter Teams Names */
+			JDialog enterTeamsDialog = new JDialog();
+			enterTeamsDialog.setBounds(50, 50, 400, 200);
+			enterTeamsDialog.setTitle("Enter Team Names");
+			Components.Label setHomeLabel = new Components.Label("Home:", Colors.colors.Black);
+			Components.Label setawayLabel = new Components.Label("Away:", Colors.colors.Black);
+			Components.Textfield setHome = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+			Components.Textfield setAway = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+			Components.Button setNames = new Components.Button(28, "Set", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					homeName = functions.returnHomeName(setHome.getText());
+					awayName = functions.returnHomeName(setAway.getText());
+					homeTeamNameLabel.setText(homeName);
+					awayTeamNameLabel.setText(awayName);
+					enterTeamsDialog.dispose();
+				}
+			});
+			JPanel set = new JPanel();
+			set.add(setHomeLabel);
+			set.add(setHome);
+			set.add(setawayLabel);
+			set.add(setAway);
+			set.add(setNames);
+			enterTeamsDialog.getContentPane().add(set,BorderLayout.CENTER);
+			enterTeamsDialog.show();
+			/* Program */
+			JPanel panel = new JPanel();
+			JPanel panel2 = new JPanel();
+			super.setBounds(50, 50, 500, 500);
+			super.setTitle("Scoring");
+			super.show();
+			//panel.setLayout(new GridLayout(1,2));
+			// row 1
+			panel.add(homeTeamNameLabel);
+			panel.add(new JLabel());
+			panel.add(awayTeamNameLabel);
+			
+			panel2.add(new Components.Button(25, "Points", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					JFrame points = new JFrame();
+					points.setBounds(50, 50, 600, 125);
+					points.show();
+					JPanel northButtonPanel = new JPanel();
+					JPanel southButtonPanel = new JPanel();
+					JPanel centerButtonPanel = new JPanel();
+					northButtonPanel.add(new JLabel("Add Points:"));
+					northButtonPanel.add(new Components.Button(24, "Home 1", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addHomePoints(1);
+						}
+					}));
+					northButtonPanel.add(new Components.Button(24, "Home 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addHomePoints(2);
+						}
+					}));
+					northButtonPanel.add(new Components.Button(23, "Home 3", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addHomePoints(3);
+						}
+					}));
+					northButtonPanel.add(new Components.Button(24, "Away 1", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addAwayPoints(1);
+						}
+					}));
+					northButtonPanel.add(new Components.Button(24, "Away 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addAwayPoints(2);
+						}
+					}));
+					northButtonPanel.add(new Components.Button(23, "Away 3", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addAwayPoints(3);
+						}
+					}));
+					
+					southButtonPanel.add(new JLabel("Subtract Points:"));
+					southButtonPanel.add(new Components.Button(24, "Home 1", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addHomePoints(-1);
+						}
+					}));
+					southButtonPanel.add(new Components.Button(24, "Home 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addHomePoints(-2);
+						}
+					}));
+					southButtonPanel.add(new Components.Button(23, "Home 3", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addHomePoints(-3);
+						}
+					}));
+					southButtonPanel.add(new Components.Button(24, "Away 1", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addAwayPoints(-1);
+						}
+					}));
+					southButtonPanel.add(new Components.Button(24, "Away 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addAwayPoints(-2);
+						}
+					}));
+					southButtonPanel.add(new Components.Button(23, "Away 3", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.addAwayPoints(-3);
+						}
+					}));
+					centerButtonPanel.add(new Components.Button(26, "Reset", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							functions.resetData();
+						}
+					}));
+					points.getContentPane().add(northButtonPanel,BorderLayout.NORTH);
+					points.getContentPane().add(southButtonPanel,BorderLayout.SOUTH);
+					points.getContentPane().add(centerButtonPanel,BorderLayout.CENTER);
+					
+				}
+			}));
+			
+			super.getContentPane().add(panel,BorderLayout.CENTER);
+			super.getContentPane().add(panel2,BorderLayout.SOUTH);
+			
 		}
 	}
 	public static void main(String args[]) {
@@ -1263,6 +1432,8 @@ public class main {
 							playbook.methods.addData(data);
 							filterText.setText("Play added to table");
 							filterText.setForeground(Colors.colors.green);
+							console.writeLine("Added play to playbook");
+							console.updateConsole(consoleApp.consoleDisplay);
 						}
 					}
 				}));
@@ -1272,9 +1443,19 @@ public class main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new playDisplay();
+				console.writeLine("Opened playbook display");
+				console.updateConsole(consoleApp.consoleDisplay);
 			}
 		})};
-		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions), new Components.Menu.menu("Playbook", playbookOptions)};
+		Components.Menu.menuItem[] scoringOptions = {new menuItem("Score", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				new scoring();
+			}
+		})};
+		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions), new Components.Menu.menu("Playbook", playbookOptions),
+				new Components.Menu.menu("Scoring",scoringOptions)};
 		win.setJMenuBar(new Components.Menu.menuBar(items));
 		new consoleApp();
 		console.writeLine("Loaded program and console");
