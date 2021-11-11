@@ -39,12 +39,20 @@ public class main {
 		private int Game1;
 		private int Game2;
 		private int Game3;
+		private static String Lineup;
+		private static int Number;
 		public Player(String name, String pos, int game1, int game2, int game3) {
 			Name = name;
 			Pos = pos;
 			Game1 = game1;
 			Game2 = game2;
 			Game3 = game3;
+		}
+		public Player(String name, String pos, int number,String lineup) {
+			Name = name;
+			Pos = pos;
+			Number = number;
+			Lineup = lineup;
 		}
 		public String returnName(){
 			return Name;
@@ -79,6 +87,12 @@ public class main {
 		public static void changePointsTotal(JTable table,int row, int game1, int game2, int game3) {
 			int points = game1 + game2 + game3;
 			table.setValueAt(points, row, 5);
+		}
+		public static String returnLineup() {
+			return Lineup;
+		}
+		public static String returnNumber() {
+			return Integer.toString(Number);
 		}
 	}
 	public static class functions{
@@ -1369,6 +1383,51 @@ public class main {
 			
 		}
 	}
+	public static class managementTable extends JPanel {
+		public static JTable j = new JTable();
+		static DefaultTableModel model = new DefaultTableModel();
+		static class methods{
+			static void newPlayer(String name,String pos,int number,String lineup) {
+				Player player = new Player(name,pos,number,lineup);
+				Object[] data = {player.returnName(),player.returnPos(),player.returnNumber(),player.returnLineup()};
+				model.addRow(data);
+			}
+		}
+		public managementTable() {	
+			String[] Columns = {"Name","Pos","Number","Lineup"};
+			Object[] blank = {"","","",""};
+		    j = new JTable(model) {
+		            public boolean editCellAt(int row, int column, java.util.EventObject e) {
+		        return false;
+		     }
+		    };
+		    for (int i = 0; i < Columns.length; i++) {
+		             model.addColumn(Columns[i]);
+		    }
+			JScrollPane sp = new JScrollPane(j);
+			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
+			super.add(sp);
+			methods.newPlayer("Skyler", "PG",1,"Starter");
+			methods.newPlayer("Zane", "SG",2,"Starter");
+			methods.newPlayer("David", "C",3,"Starter");
+			methods.newPlayer("Carson", "PF",4,"Starter");
+			methods.newPlayer("Ethan", "SF",5,"Starter");
+			model.addRow(blank);
+			methods.newPlayer("Jackson", "PG",6,"Bench");
+			methods.newPlayer("Avery", "SG",7,"Bench");
+			methods.newPlayer("Noah", "C",8,"Bench");
+			methods.newPlayer("Jack", "PF",9,"Bench");
+			methods.newPlayer("Toby", "SF",10,"Bench");
+		}
+	}
+	public static class management extends JFrame{
+		public management() {
+			super.setTitle("Management");
+			super.setBounds(100, 100, 500, 500);
+			super.show();
+			super.getContentPane().add(new managementTable(),BorderLayout.CENTER);
+		}
+	}
 	public static void main(String args[]) {
 		String[] TabsString = {"Points","Steals","Rebounds","Fouls","Edit","Game Time","Time","Runtime"};
 		JPanel[] Tabs = {new pointsTable(),new stealsTable(),new reboundsTable(),new foulsTable(),new editTab(),new gameTime(),new Bundle.TimeInfo(),new runtimeClock()};
@@ -1393,6 +1452,12 @@ public class main {
 				console.writeLine("Loaded playbook");
 				console.updateConsole(consoleApp.consoleDisplay);
 				new consoleApp();
+			}
+		}),new menuItem("Management",new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				new management();
 			}
 		})};
 		Components.Menu.menuItem[] consoleOptions = {new menuItem("Clear", new ActionListener() {
