@@ -4,6 +4,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -17,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -1392,6 +1395,46 @@ public class main {
 				Object[] data = {player.returnName(),player.returnPos(),player.returnNumber(),player.returnLineup()};
 				model.addRow(data);
 			}
+			static String getTotalPoints(String Pos, String Name) {
+				if(Pos.equals("PG") && Name.equals(pointsTable.PG.returnName())) {
+					return Integer.toString(pointsTable.PG.returnPoints());
+				}
+				else if(Pos.equals("SG") && Name.equals(pointsTable.SG.returnName())) {
+					return Integer.toString(pointsTable.SG.returnPoints());
+				}
+				else if(Pos.equals("C") && Name.equals(pointsTable.C.returnName())) {
+					return Integer.toString(pointsTable.C.returnPoints());
+				}
+				else if(Pos.equals("PF") && Name.equals(pointsTable.PF.returnName())) {
+					return Integer.toString(pointsTable.PF.returnPoints());
+				}
+				else if(Pos.equals("SF") && Name.equals(pointsTable.SF.returnName())) {
+					return Integer.toString(pointsTable.SF.returnPoints());
+				}
+				else {
+					return "No data available";
+				}
+			}
+			static String getLastGamePoints(String Pos, String Name) {
+				if(Pos.equals("PG") && Name.equals(pointsTable.PG.returnName())) {
+					return Integer.toString(pointsTable.PG.returnGame3());
+				}
+				else if(Pos.equals("SG") && Name.equals(pointsTable.SG.returnName())) {
+					return Integer.toString(pointsTable.SG.returnGame3());
+				}
+				else if(Pos.equals("C") && Name.equals(pointsTable.C.returnName())) {
+					return Integer.toString(pointsTable.C.returnGame3());
+				}
+				else if(Pos.equals("PF") && Name.equals(pointsTable.PF.returnName())) {
+					return Integer.toString(pointsTable.PF.returnGame3());
+				}
+				else if(Pos.equals("SF") && Name.equals(pointsTable.SF.returnName())) {
+					return Integer.toString(pointsTable.SF.returnGame3());
+				}
+				else {
+					return "No data available";
+				}
+			}
 		}
 		public managementTable() {	
 			String[] Columns = {"Name","Pos","Number","Lineup"};
@@ -1407,6 +1450,49 @@ public class main {
 			JScrollPane sp = new JScrollPane(j);
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
+			j.addMouseListener(new MouseAdapter() {
+		         public void mouseClicked(MouseEvent me) {
+		            if (me.getClickCount() == 2) {
+		               JTable target = (JTable)me.getSource();
+		               int row = target.getSelectedRow();
+		               if(j.getValueAt(row, 3) == "Starter") {
+		            	   j.setValueAt("Bench", row, 3);
+		               }
+		               else if (j.getValueAt(row, 3) == "Bench") {
+		            	   j.setValueAt("Starter", row, 3);
+		               }
+		            }
+		         }
+		    });
+			j.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyCode() == e.VK_ENTER) {
+						JTable target = (JTable)e.getSource();
+						int row = target.getSelectedRow();
+						String playerInfo = j.getValueAt(row, 0) + " - "  + j.getValueAt(row, 1) + " - " + j.getValueAt(row, 2) + " - " + j.getValueAt(row, 3);
+						JPanel north = new JPanel();
+						JLabel playerLabel = new Components.Label(playerInfo,Colors.colors.Black);
+						north.add(playerLabel);
+						JPanel center = new JPanel();
+						String totalPoints = methods.getTotalPoints(j.getValueAt(row, 1).toString(), j.getValueAt(row, 0).toString());
+						String lastgame = methods.getLastGamePoints(j.getValueAt(row, 1).toString(), j.getValueAt(row, 0).toString());
+						String gameInfo = "Last Game: " + lastgame + " - Last 3: " + totalPoints; 
+						JLabel pointsLabel = new Components.Label(gameInfo, Colors.colors.Black);
+						center.add(pointsLabel);
+						/* Window Configs */
+						String title = j.getValueAt(row, 1).toString();
+						Components.Window main = new Components.Window(25, 25, 300, 300, title, north, new JPanel(), new JPanel(), new JPanel(), center);
+					}
+			    }
+			});
+		    j.addKeyListener(new KeyAdapter() {
+		        public void keyPressed(KeyEvent e) {
+		          int row = j.getSelectedRow();
+		          if(e.getKeyCode() == e.VK_ESCAPE) {
+		        	  j.removeRowSelectionInterval(row, row);
+		          }
+		        }
+		    });
 			methods.newPlayer("Skyler", "PG",1,"Starter");
 			methods.newPlayer("Zane", "SG",2,"Starter");
 			methods.newPlayer("David", "C",3,"Starter");
