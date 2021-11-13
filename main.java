@@ -12,7 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.TreeMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Colors.colors;
 import Components.Bundle;
+import Components.Button;
 import Components.Label;
 import Components.Menu.menu;
 import Components.Menu.menuItem;
@@ -1386,8 +1387,39 @@ public class main {
 			
 		}
 	}
+	public static class benchEdit extends JFrame{
+		public static TreeMap<String, Player> players = new TreeMap<String,Player>();
+		public benchEdit(String Name, String Pos) {
+			Components.Label game1Label = new Components.Label("Game 1:", Colors.colors.Black);
+			Components.Textfield game1 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+			Components.Label game2Label = new Components.Label("Game 2:", Colors.colors.Black);
+			Components.Textfield game2 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+			Components.Label game3Label = new Components.Label("Game 3:", Colors.colors.Black);
+			Components.Textfield game3 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+			JPanel center = new JPanel();
+			center.add(game1Label);
+			center.add(game1);
+			center.add(game2Label);
+			center.add(game2);
+			center.add(game3Label);
+			center.add(game3);
+			center.add(new Components.Button(28, "Add", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					int points1 = Integer.parseInt(game1.getText()); 
+					int points2 = Integer.parseInt(game2.getText());
+					int points3 = Integer.parseInt(game3.getText()); 
+					players.put(Name,new Player(Name,Pos,points1,points2,points3));
+					managementTable.bench.dispose();
+					managementTable.main.dispose();
+				}
+			}));
+			super.getContentPane().add(center);
+		}
+	}
 	public static class managementTable extends JPanel {
 		public static JTable j = new JTable();
+		public static JFrame bench;
+		public static Components.Window main;
 		static DefaultTableModel model = new DefaultTableModel();
 		static class methods{
 			static void newPlayer(String name,String pos,int number,String lineup) {
@@ -1396,6 +1428,7 @@ public class main {
 				model.addRow(data);
 			}
 			static String getTotalPoints(String Pos, String Name) {
+				bench = new benchEdit(Name,Pos);
 				if(Pos.equals("PG") && Name.equals(pointsTable.PG.returnName())) {
 					return Integer.toString(pointsTable.PG.returnPoints());
 				}
@@ -1412,7 +1445,15 @@ public class main {
 					return Integer.toString(pointsTable.SF.returnPoints());
 				}
 				else {
-					return "No data available";
+					
+					if(benchEdit.players.size() == 0) {
+						bench.show();
+						bench.setBounds(50, 50, 600, 500);
+						return "No data available";
+					}	
+					else {
+						return Integer.toString(benchEdit.players.get(Name).returnPoints());
+					}
 				}
 			}
 			static String getLastGamePoints(String Pos, String Name) {
@@ -1432,7 +1473,12 @@ public class main {
 					return Integer.toString(pointsTable.SF.returnGame3());
 				}
 				else {
-					return "No data available";
+					if(benchEdit.players.size() == 0) {
+						return "No data available";
+					}	
+					else {
+						return Integer.toString(benchEdit.players.get(Name).returnGame3());
+					}
 				}
 			}
 		}
@@ -1481,7 +1527,7 @@ public class main {
 						center.add(pointsLabel);
 						/* Window Configs */
 						String title = j.getValueAt(row, 1).toString();
-						Components.Window main = new Components.Window(25, 25, 300, 300, title, north, new JPanel(), new JPanel(), new JPanel(), center);
+						main = new Components.Window(25, 25, 350, 300, title, north, new JPanel(), new JPanel(), new JPanel(), center);
 					}
 			    }
 			});
