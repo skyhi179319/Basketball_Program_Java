@@ -1446,7 +1446,7 @@ public class main {
 				}
 				else {
 					
-					if(benchEdit.players.size() == 0) {
+					if(benchEdit.players.size() == 0 || !benchEdit.players.containsKey(Name)) {
 						bench.show();
 						bench.setBounds(50, 50, 600, 500);
 						return "No data available";
@@ -1473,7 +1473,7 @@ public class main {
 					return Integer.toString(pointsTable.SF.returnGame3());
 				}
 				else {
-					if(benchEdit.players.size() == 0) {
+					if(benchEdit.players.size() == 0 || !benchEdit.players.containsKey(Name)) {
 						return "No data available";
 					}	
 					else {
