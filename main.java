@@ -1410,7 +1410,12 @@ public class main {
 					int points3 = Integer.parseInt(game3.getText()); 
 					players.put(Name,new Player(Name,Pos,points1,points2,points3));
 					managementTable.bench.dispose();
-					managementTable.main.dispose();
+					String totalPoints = managementTable.methods.getTotalPoints(managementTable.j.getValueAt(managementTable.row_getSelected, 1).toString(), 
+							managementTable.j.getValueAt(managementTable.row_getSelected, 0).toString());
+					String lastgame = managementTable.methods.getLastGamePoints(managementTable.j.getValueAt(managementTable.row_getSelected, 1).toString(), 
+							managementTable.j.getValueAt(managementTable.row_getSelected, 0).toString());
+					String gameInfo = "Last Game: " + lastgame + " - Last 3: " + totalPoints; 
+					managementTable.pointsLabel.setText(gameInfo);
 				}
 			}));
 			super.getContentPane().add(center);
@@ -1421,6 +1426,8 @@ public class main {
 		public static JFrame bench;
 		public static Components.Window main;
 		static DefaultTableModel model = new DefaultTableModel();
+		public static int row_getSelected;
+		public static JLabel pointsLabel;
 		static class methods{
 			static void newPlayer(String name,String pos,int number,String lineup) {
 				Player player = new Player(name,pos,number,lineup);
@@ -1515,6 +1522,7 @@ public class main {
 					if(e.getKeyCode() == e.VK_ENTER) {
 						JTable target = (JTable)e.getSource();
 						int row = target.getSelectedRow();
+						row_getSelected = row;
 						String playerInfo = j.getValueAt(row, 0) + " - "  + j.getValueAt(row, 1) + " - " + j.getValueAt(row, 2) + " - " + j.getValueAt(row, 3);
 						JPanel north = new JPanel();
 						JLabel playerLabel = new Components.Label(playerInfo,Colors.colors.Black);
@@ -1523,7 +1531,7 @@ public class main {
 						String totalPoints = methods.getTotalPoints(j.getValueAt(row, 1).toString(), j.getValueAt(row, 0).toString());
 						String lastgame = methods.getLastGamePoints(j.getValueAt(row, 1).toString(), j.getValueAt(row, 0).toString());
 						String gameInfo = "Last Game: " + lastgame + " - Last 3: " + totalPoints; 
-						JLabel pointsLabel = new Components.Label(gameInfo, Colors.colors.Black);
+						pointsLabel = new Components.Label(gameInfo, Colors.colors.Black);
 						center.add(pointsLabel);
 						/* Window Configs */
 						String title = j.getValueAt(row, 1).toString();
