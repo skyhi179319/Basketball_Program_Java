@@ -1519,6 +1519,20 @@ public class main {
 		    });
 			j.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent e) {
+					if(e.getKeyCode() == e.VK_SPACE) {
+						JTable target = (JTable)e.getSource();
+			            int row = target.getSelectedRow();
+			            if(j.getValueAt(row, 3) == "Starter") {
+			            	j.setValueAt("Bench", row, 3);
+			            }
+			            else if (j.getValueAt(row, 3) == "Bench") {
+			            	j.setValueAt("Starter", row, 3);
+			            }	
+					}
+				}
+			});
+			j.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent e) {
 					if(e.getKeyCode() == e.VK_ENTER) {
 						JTable target = (JTable)e.getSource();
 						int row = target.getSelectedRow();
@@ -1558,6 +1572,8 @@ public class main {
 			methods.newPlayer("Noah", "C",8,"Bench");
 			methods.newPlayer("Jack", "PF",9,"Bench");
 			methods.newPlayer("Toby", "SF",10,"Bench");
+			console.writeLine("Loaded bench players");
+			console.updateConsole(consoleApp.consoleDisplay);
 		}
 	}
 	public static class management extends JFrame{
@@ -1597,6 +1613,8 @@ public class main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub	
+				console.writeLine("Loaded Management");
+				console.updateConsole(consoleApp.consoleDisplay);
 				new management();
 			}
 		})};
@@ -1657,6 +1675,8 @@ public class main {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub	
 				new scoring();
+				console.writeLine("Loaded scoring");
+				console.updateConsole(consoleApp.consoleDisplay);
 			}
 		})};
 		Components.Menu.menu[] items = {new Components.Menu.menu("Features", features),new Components.Menu.menu("Console", consoleOptions), new Components.Menu.menu("Playbook", playbookOptions),
