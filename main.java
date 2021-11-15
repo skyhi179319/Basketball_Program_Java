@@ -116,7 +116,7 @@ public class main {
 			return Player1.returnPoints() + Player2.returnPoints() + Player3.returnPoints() + Player4.returnPoints() + Player5.returnPoints();
 		}
 		public static String returnAvg(int totalPoints){        
-			double points = totalPoints / 3;
+			double points = totalPoints / 3.0;
 			return String.format("%.3f",points);
 		}
 		public static void changeGame1Points(JTable table) {
