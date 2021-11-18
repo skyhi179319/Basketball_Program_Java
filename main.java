@@ -422,6 +422,8 @@ public class main {
 		}
 	}
 	public static class editTab extends JPanel{
+		public static JTextField tname, tPos,tGame1, tGame2, tGame3; 
+		public static JButton buttonSave;
 		public editTab() {
 			JPanel p1 = new JPanel();
 			p1.setLayout(new GridLayout(7, 2));
@@ -434,11 +436,6 @@ public class main {
 		    p2.setLayout(layout);
 		  
 		    JLabel lName, lPos, lGame1, lGame2, lGame3;
-		  
-		    JTextField tname, tPos,tGame1, tGame2, tGame3;
-		  
-		    JButton buttonSave;
-		  
 		    lName = new Components.Label("NAME:", Colors.colors.darkpurple);
 		  
 		    tname = new Components.Textfield(20, Colors.colors.purple, Colors.colors.Black);
@@ -1510,9 +1507,11 @@ public class main {
 		               int row = target.getSelectedRow();
 		               if(j.getValueAt(row, 3) == "Starter") {
 		            	   j.setValueAt("Bench", row, 3);
+		            	   new managementDialog(j);
 		               }
 		               else if (j.getValueAt(row, 3) == "Bench") {
 		            	   j.setValueAt("Starter", row, 3);
+		            	   new managementDialog(j);
 		               }
 		            }
 		         }
@@ -1527,6 +1526,7 @@ public class main {
 			            }
 			            else if (j.getValueAt(row, 3) == "Bench") {
 			            	j.setValueAt("Starter", row, 3);
+			            	new managementDialog(j);
 			            }	
 					}
 				}
@@ -1582,6 +1582,152 @@ public class main {
 			super.setBounds(100, 100, 500, 500);
 			super.show();
 			super.getContentPane().add(new managementTable(),BorderLayout.CENTER);
+		}
+	}
+	public static class managementDialog extends JFrame{
+		public static class functions{
+			public static void changeByKey(String Name) {
+				if(benchEdit.players.get(Name).returnPos() == "PG") {
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnName(), 0, 0);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame1(), 0, 2);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame2(), 0, 3);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame3(), 0, 4);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnPoints(), 0, 5);
+				}
+				else if(benchEdit.players.get(Name).returnPos() == "SG") {
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnName(), 1, 0);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame1(), 1, 2);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame2(), 1, 3);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame3(), 1, 4);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnPoints(), 1, 5);
+				}
+				else if(benchEdit.players.get(Name).returnPos() == "C") {
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnName(), 2, 0);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame1(), 2, 2);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame2(), 2, 3);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame3(), 2, 4);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnPoints(), 2, 5);
+				}
+				else if(benchEdit.players.get(Name).returnPos() == "PF") {
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnName(), 3, 0);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame1(), 3, 2);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame2(), 3, 3);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame3(), 3, 4);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnPoints(), 3, 5);
+				}
+				else if(benchEdit.players.get(Name).returnPos() == "SF") {
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnName(), 4, 0);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame1(), 4, 2);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame2(), 4, 3);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnGame3(), 4, 4);
+					pointsTable.j.setValueAt(benchEdit.players.get(Name).returnPoints(), 4, 5);
+				}
+				main.functions.changeAllPoints(pointsTable.j);
+				main.functions.changeGame1Points(pointsTable.j);
+				main.functions.changeGame2Points(pointsTable.j);
+				main.functions.changeGame3Points(pointsTable.j);
+				main.functions.changeAVG(pointsTable.j);
+			}
+			public static void changeByExsisting(String Pos) {
+				if(Pos == "PG") {
+					pointsTable.j.setValueAt(pointsTable.PG.returnName(), 0, 0);
+					pointsTable.j.setValueAt(pointsTable.PG.returnGame1(), 0, 2);
+					pointsTable.j.setValueAt(pointsTable.PG.returnGame2(), 0, 3);
+					pointsTable.j.setValueAt(pointsTable.PG.returnGame3(), 0, 4);
+					pointsTable.j.setValueAt(pointsTable.PG.returnPoints(), 0, 5);
+				}
+				else if(Pos == "SG") {
+					pointsTable.j.setValueAt(pointsTable.SG.returnName(), 1, 0);
+					pointsTable.j.setValueAt(pointsTable.SG.returnGame1(), 1, 2);
+					pointsTable.j.setValueAt(pointsTable.SG.returnGame2(), 1, 3);
+					pointsTable.j.setValueAt(pointsTable.SG.returnGame3(), 1, 4);
+					pointsTable.j.setValueAt(pointsTable.SG.returnPoints(), 1, 5);
+				}
+				else if(Pos == "C") {
+					pointsTable.j.setValueAt(pointsTable.C.returnName(), 2, 0);
+					pointsTable.j.setValueAt(pointsTable.C.returnGame1(), 2, 2);
+					pointsTable.j.setValueAt(pointsTable.C.returnGame2(), 2, 3);
+					pointsTable.j.setValueAt(pointsTable.C.returnGame3(), 2, 4);
+					pointsTable.j.setValueAt(pointsTable.C.returnPoints(), 2, 5);
+				}
+				else if(Pos == "PF") {
+					pointsTable.j.setValueAt(pointsTable.PF.returnName(), 3, 0);
+					pointsTable.j.setValueAt(pointsTable.PF.returnGame1(), 3, 2);
+					pointsTable.j.setValueAt(pointsTable.PF.returnGame2(), 3, 3);
+					pointsTable.j.setValueAt(pointsTable.PF.returnGame3(), 3, 4);
+					pointsTable.j.setValueAt(pointsTable.PF.returnPoints(), 3, 5);
+				}
+				else if(Pos == "SF") {
+					pointsTable.j.setValueAt(pointsTable.SF.returnName(), 4, 0);
+					pointsTable.j.setValueAt(pointsTable.SF.returnGame1(), 4, 2);
+					pointsTable.j.setValueAt(pointsTable.SF.returnGame2(), 4, 3);
+					pointsTable.j.setValueAt(pointsTable.SF.returnGame3(), 4, 4);
+					pointsTable.j.setValueAt(pointsTable.SF.returnPoints(), 4, 5);
+				}
+				main.functions.changeAllPoints(pointsTable.j);
+				main.functions.changeGame1Points(pointsTable.j);
+				main.functions.changeGame2Points(pointsTable.j);
+				main.functions.changeGame3Points(pointsTable.j);
+				main.functions.changeAVG(pointsTable.j);
+			}
+		}
+		public managementDialog(JTable table) {
+			super.setBounds(50, 50, 300, 300);
+			JPanel panel = new JPanel();
+			Components.Button button = new Components.Button(28, "Change", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent me) {
+					int row = table.getSelectedRow();
+					if(benchEdit.players.size() == 0 || !benchEdit.players.containsKey(table.getValueAt(row, 0).toString())) {
+						JFrame frame = new JFrame();
+						frame.show();
+						frame.setBounds(50, 50, 500, 300);
+						Components.Label game1Label = new Components.Label("Game 1:", Colors.colors.Black);
+						Components.Textfield game1 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+						Components.Label game2Label = new Components.Label("Game 2:", Colors.colors.Black);
+						Components.Textfield game2 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+						Components.Label game3Label = new Components.Label("Game 3:", Colors.colors.Black);
+						Components.Textfield game3 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+						JPanel center = new JPanel();
+						center.add(game1Label);
+						center.add(game1);
+						center.add(game2Label);
+						center.add(game2);
+						center.add(game3Label);
+						center.add(game3);
+						center.add(new Components.Button(26, "Add", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+							public void mouseClicked(MouseEvent e) {
+								int points1 = Integer.parseInt(game1.getText()); 
+								int points2 = Integer.parseInt(game2.getText());
+								int points3 = Integer.parseInt(game3.getText()); 
+								benchEdit.players.put(table.getValueAt(row, 0).toString(),new Player(table.getValueAt(row, 0).toString(),table.getValueAt(row, 1).toString(),points1,points2,points3));
+								if(benchEdit.players.containsKey(table.getValueAt(row, 0))) {
+					            	functions.changeByKey(table.getValueAt(row, 0).toString());
+					            }
+					            else {
+					            	functions.changeByExsisting(table.getValueAt(row, 1).toString());
+					            }
+								frame.dispose();
+							}
+						}));
+						frame.getContentPane().add(center,BorderLayout.CENTER);
+					}
+					else {
+						if(benchEdit.players.containsKey(table.getValueAt(row, 0))) {
+			            	functions.changeByKey(table.getValueAt(row, 0).toString());
+			            }
+			            else {
+			            	functions.changeByExsisting(table.getValueAt(row, 1).toString());
+			            }
+					}
+		        }
+			});
+			panel.add(button);
+			super.getContentPane().add(panel, BorderLayout.CENTER);
+			if(button.isSelected() == true) {
+				super.dispose();
+			}
+			super.show();
 		}
 	}
 	public static void main(String args[]) {
