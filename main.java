@@ -1677,16 +1677,17 @@ public class main {
 			}
 		}
 		public managementDialog(JTable table) {
+			JFrame main = this;
 			super.setBounds(50, 50, 600, 300);
 			JPanel panel = new JPanel();
-			Components.Button button = new Components.Button(26, "Change", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+			Components.Button button = new Components.Button(23, "Change", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent me) {
 					int row = table.getSelectedRow();
 					if(benchEdit.players.size() == 0 || !benchEdit.players.containsKey(table.getValueAt(row, 0).toString())) {
 						JFrame frame = new JFrame();
 						frame.show();
-						frame.setBounds(50, 50, 500, 300);
+						frame.setBounds(50, 50, 600, 300);
 						Components.Label game1Label = new Components.Label("Game 1:", Colors.colors.Black);
 						Components.Textfield game1 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
 						Components.Label game2Label = new Components.Label("Game 2:", Colors.colors.Black);
@@ -1713,6 +1714,7 @@ public class main {
 					            	functions.changeByExsisting(table.getValueAt(row, 1).toString());
 					            }
 								frame.dispose();
+								
 							}
 						}));
 						frame.getContentPane().add(center,BorderLayout.CENTER);
@@ -1725,6 +1727,7 @@ public class main {
 			            	functions.changeByExsisting(table.getValueAt(row, 1).toString());
 			            }
 					}
+					main.dispose();
 		        }
 			});
 			panel.add(button);
