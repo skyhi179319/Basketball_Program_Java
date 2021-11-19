@@ -178,6 +178,11 @@ public class main {
 		 public static Player PF = new Player("Carson","PF",15,13,17);
 		 public static Player SF = new Player("Ethan","SF",17,15,17);
 		 public pointsTable(){
+			benchEdit.players.put(PG.returnName(), PG);
+			benchEdit.players.put(SG.returnName(), SG);
+			benchEdit.players.put(C.returnName(), C);
+			benchEdit.players.put(PF.returnName(), PF);
+			benchEdit.players.put(SF.returnName(), SF);
 		    DefaultTableModel model = new DefaultTableModel();
 		    int Game1 = functions.returnGame1Points(PG,SG,C,PF,SF);
             int Game2 = functions.returnGame2Points(PG,SG,C,PF,SF);
@@ -1672,9 +1677,9 @@ public class main {
 			}
 		}
 		public managementDialog(JTable table) {
-			super.setBounds(50, 50, 300, 300);
+			super.setBounds(50, 50, 600, 300);
 			JPanel panel = new JPanel();
-			Components.Button button = new Components.Button(28, "Change", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+			Components.Button button = new Components.Button(26, "Change", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent me) {
 					int row = table.getSelectedRow();
@@ -1695,7 +1700,7 @@ public class main {
 						center.add(game2);
 						center.add(game3Label);
 						center.add(game3);
-						center.add(new Components.Button(26, "Add", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						center.add(new Components.Button(28, "Add", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 							public void mouseClicked(MouseEvent e) {
 								int points1 = Integer.parseInt(game1.getText()); 
 								int points2 = Integer.parseInt(game2.getText());
