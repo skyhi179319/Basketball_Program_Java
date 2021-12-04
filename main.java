@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.ButtonGroup;
@@ -1226,6 +1227,7 @@ public class main {
 		static String awayName = "";
 		static JLabel homeTeamNameLabel = new JLabel();
 		static JLabel awayTeamNameLabel = new JLabel();
+		public static TreeMap<String,Integer> currentPlayerPoints = new TreeMap<String,Integer>();
 		static class functions{
 			static String returnHomeName(String name) {
 				return name;
@@ -1246,6 +1248,49 @@ public class main {
 				awayPoints = 0;
 				homeTeamNameLabel.setText(homeName + ": " + Integer.toString(homePoints));
 				awayTeamNameLabel.setText(awayName + ": " + Integer.toString(awayPoints));
+			}
+			static void addPointsToPlayer(int points) {
+				JPanel center = new JPanel();
+				Components.Window stats = new Components.Window(10, 10, 300, 300, "Edit Player", new JPanel(), new JPanel(), new JPanel(), new JPanel(), center);
+				Set<String> keys = benchEdit.players.keySet();	
+		        //iterate using forEach
+		        keys.forEach( key -> {        
+		        	String TextDisplay = key;
+		        	int size = 0;
+		        	if(TextDisplay.length() == 2) {
+						size = 30;
+					}
+					else if(TextDisplay.length() == 3) {
+						size = 29;
+					}
+					else if(TextDisplay.length() == 4) {
+						size = 28;
+					}
+					else if(TextDisplay.length() == 5) {
+						size = 26;
+					}
+					else if(TextDisplay.length() == 6) {
+						size = 24;
+					}
+					else if(TextDisplay.length() == 7) {
+						size = 23;
+					}
+					else if(TextDisplay.length() == 8) {
+						size = 20;
+					}
+		            center.add(new Components.Button(size, key, true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+		            	 public void mouseClicked(MouseEvent me) {
+		            		 if(currentPlayerPoints.containsKey(key)) {
+		            			 int returnPoints = currentPlayerPoints.get(key) + points;
+		            			 currentPlayerPoints.replace(key, returnPoints);
+		            		 }
+		            		 else {
+		            			 currentPlayerPoints.put(key, points);
+		            		 }
+		            		 stats.dispose();
+		            	 }
+		            }));
+		        });
 			}
 		}
 		public scoring() {
@@ -1301,6 +1346,7 @@ public class main {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(1);
+							functions.addPointsToPlayer(awayPoints);
 						}
 					}));
 					northButtonPanel.add(new Components.Button(24, "Home 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
