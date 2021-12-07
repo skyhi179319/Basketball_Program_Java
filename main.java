@@ -12,6 +12,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -27,8 +29,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import Colors.colors;
 import Components.Bundle;
@@ -1288,6 +1294,7 @@ public class main {
 		            			 currentPlayerPoints.put(key, points);
 		            		 }
 		            		 stats.dispose();
+		            		 currentPoints.functions.updateTable();
 		            	 }
 		            }));
 		        });
@@ -1346,19 +1353,21 @@ public class main {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(1);
-							functions.addPointsToPlayer(awayPoints);
+							functions.addPointsToPlayer(1);
 						}
 					}));
 					northButtonPanel.add(new Components.Button(24, "Home 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(2);
+							functions.addPointsToPlayer(2);
 						}
 					}));
 					northButtonPanel.add(new Components.Button(23, "Home 3", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(3);
+							functions.addPointsToPlayer(3);
 						}
 					}));
 					northButtonPanel.add(new Components.Button(24, "Away 1", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
@@ -1385,18 +1394,21 @@ public class main {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(-1);
+							functions.addPointsToPlayer(-1);
 						}
 					}));
 					southButtonPanel.add(new Components.Button(24, "Home 2", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(-2);
+							functions.addPointsToPlayer(-2);
 						}
 					}));
 					southButtonPanel.add(new Components.Button(23, "Home 3", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							functions.addHomePoints(-3);
+							functions.addPointsToPlayer(-3);
 						}
 					}));
 					southButtonPanel.add(new Components.Button(24, "Away 1", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
@@ -1784,6 +1796,53 @@ public class main {
 			super.show();
 		}
 	}
+	public static class currentPoints extends JFrame{
+		static DefaultTableModel model = new DefaultTableModel();
+		static JTable j;
+		static class functions{
+			static void updateTable() {
+				for(int i = 0; i < model.getRowCount(); i++) {
+					model.removeRow(i);
+				}
+				for(Map.Entry m:scoring.currentPlayerPoints.entrySet()){    
+					Object[] row = {m.getKey(),m.getValue()};
+			    	model.addRow(row);    
+			    }
+				TableRowSorter<TableModel> sorter = new TableRowSorter<>(j.getModel());
+				j.setRowSorter(sorter);
+				List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+				 
+				int columnIndexToSort = 1;
+				sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
+				 
+				sorter.setSortKeys(sortKeys);
+				sorter.sort();
+			}
+		}
+		public currentPoints() {
+			super.setBounds(10, 10, 500, 500);
+			super.setTitle("Player Points");
+			super.show();
+			JPanel center = new JPanel();
+			String[] Columns = {"Name","Points"};
+		    j = new JTable(model) {
+		            public boolean editCellAt(int row, int column, java.util.EventObject e) {
+		            	return false;
+		            }
+		    };
+		    for(int i = 0; i < Columns.length; i++) {
+		    	  model.addColumn(Columns[i]);
+		    }
+	    	for(Map.Entry m:scoring.currentPlayerPoints.entrySet()){
+		    	Object[] row = {m.getKey(),m.getValue()};
+		    	model.addRow(row);   
+		    }
+			JScrollPane sp = new JScrollPane(j);
+			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
+			center.add(sp);
+			super.getContentPane().add(center,BorderLayout.CENTER);
+		}
+	}
 	public static void main(String args[]) {
 		String[] TabsString = {"Points","Steals","Rebounds","Fouls","Edit","Game Time","Time","Runtime"};
 		JPanel[] Tabs = {new pointsTable(),new stealsTable(),new reboundsTable(),new foulsTable(),new editTab(),new gameTime(),new Bundle.TimeInfo(),new runtimeClock()};
@@ -1876,6 +1935,14 @@ public class main {
 				// TODO Auto-generated method stub	
 				new scoring();
 				console.writeLine("Loaded scoring");
+				console.updateConsole(consoleApp.consoleDisplay);
+			}
+		}),new menuItem("Points", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				new currentPoints();
+				console.writeLine("Loaded player points");
 				console.updateConsole(consoleApp.consoleDisplay);
 			}
 		})};
