@@ -1801,7 +1801,7 @@ public class main {
 		static JTable j;
 		static class functions{
 			static void updateTable() {
-				for(int i = 0; i < model.getRowCount(); i++) {
+				for(int i = model.getRowCount() - 1; i >= 0; i--) {
 					model.removeRow(i);
 				}
 				for(Map.Entry m:scoring.currentPlayerPoints.entrySet()){    
