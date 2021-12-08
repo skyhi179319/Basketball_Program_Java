@@ -1806,7 +1806,12 @@ public class main {
 				}
 				for(Map.Entry m:scoring.currentPlayerPoints.entrySet()){    
 					Object[] row = {m.getKey(),m.getValue()};
-			    	model.addRow(row);    
+					if(m.getValue().equals(0)) {
+						
+					}
+					else {
+						model.addRow(row);   
+					}
 			    }
 				TableRowSorter<TableModel> sorter = new TableRowSorter<>(j.getModel());
 				j.setRowSorter(sorter);
