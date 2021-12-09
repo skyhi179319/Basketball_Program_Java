@@ -35,7 +35,7 @@ import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
+import java.lang.*;
 import Colors.colors;
 import Components.Bundle;
 import Components.Button;
@@ -175,6 +175,23 @@ public class main {
 			int arr[] = {Integer.parseInt(PG), Integer.parseInt(SG), Integer.parseInt(C), Integer.parseInt(PF), Integer.parseInt(SF)};
 	        int max = Arrays.stream(arr).max().getAsInt();
 	        return max;
+		}
+	}
+	public static class predictionModel{
+		private static double returnPrediction(int pointsScored,int pointsAllowed) {
+			// Pythagorean Expectation
+			double sum1 = java.lang.StrictMath.pow(pointsScored, 2);
+		    double sum2 = java.lang.StrictMath.pow(pointsAllowed, 2);
+			double math = sum1/(sum1+sum2);
+			return math;
+		}
+		public static String formatedHomePrediction(int pointsScored,int pointsAllowed) {
+			double prediction = returnPrediction(pointsScored,pointsAllowed);
+			return "Home: " + String.format("%.3f",prediction);
+		}
+		public static String formatedAwayPrediction(int pointsScored,int pointsAllowed) {
+			double prediction = returnPrediction(pointsScored,pointsAllowed);
+			return "Away: " + String.format("%.3f",prediction);
 		}
 	}
 	public static class pointsTable extends JPanel{
@@ -1825,10 +1842,13 @@ public class main {
 			}
 		}
 		public currentPoints() {
-			super.setBounds(10, 10, 500, 500);
+			super.setBounds(10, 10, 500, 550);
 			super.setTitle("Player Points");
 			super.show();
 			JPanel center = new JPanel();
+			JPanel south = new JPanel();
+			Components.Label home = new Components.Label("", Colors.colors.Black);
+			Components.Label away = new Components.Label("", Colors.colors.Black);
 			String[] Columns = {"Name","Points"};
 		    j = new JTable(model) {
 		            public boolean editCellAt(int row, int column, java.util.EventObject e) {
@@ -1846,6 +1866,44 @@ public class main {
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			center.add(sp);
 			super.getContentPane().add(center,BorderLayout.CENTER);
+			south.add(home);
+			south.add(away);
+			super.getContentPane().add(south,BorderLayout.SOUTH);
+			Components.Menu.menuItem[] predictionItem = {new menuItem("Score", new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Components.Textfield homeScored = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+					Components.Textfield homeAllowed = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+					Components.Textfield awayScored = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+					Components.Textfield awayAllowed = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
+					JPanel North = new JPanel();
+					North.add(new Components.Label("Home - Points Scored :",Colors.colors.Black));
+					North.add(homeScored);
+					North.add(new Components.Label("Home - Points Allowed :",Colors.colors.Black));
+					North.add(homeAllowed);
+					JPanel Center = new JPanel();
+					Center.add(new Components.Label("Away - Points Scored :",Colors.colors.Black));
+					Center.add(awayScored);
+					Center.add(new Components.Label("Away - Points Allowed :",Colors.colors.Black));
+					Center.add(awayAllowed);
+					JPanel South = new JPanel();
+					Components.Window win = new Components.Window(10, 10, 550, 125, "Set Predictions", North, new JPanel(), South, new JPanel(), Center);
+					South.add(new Components.Button(26, "Set", true, Colors.colors.Black, Colors.colors.Black, new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							int homeScoredNumber = Integer.parseInt(homeScored.getText());
+							int homeAllowedNumber = Integer.parseInt(homeAllowed.getText());
+							int awayScoredNumber = Integer.parseInt(awayScored.getText());
+							int awayAllowedNumber = Integer.parseInt(awayAllowed.getText());
+							home.setText(predictionModel.formatedHomePrediction(homeScoredNumber, homeAllowedNumber));
+							away.setText(predictionModel.formatedAwayPrediction(awayScoredNumber, awayAllowedNumber));
+							win.dispose();
+						}
+					}));
+				}
+			})};
+			Components.Menu.menu[] items = {new Components.Menu.menu("Prediction", predictionItem)};
+			super.setJMenuBar(new Components.Menu.menuBar(items));
 		}
 	}
 	public static void main(String args[]) {
