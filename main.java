@@ -1,15 +1,26 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineMetrics;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +30,7 @@ import java.util.TreeMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +48,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.lang.*;
+import java.text.NumberFormat;
+
 import Colors.colors;
 import Components.Bundle;
 import Components.Button;
@@ -178,6 +192,8 @@ public class main {
 		}
 	}
 	public static class predictionModel{
+		public static double homePrediction;
+		public static double awayPrediction;
 		private static double returnPrediction(int pointsScored,int pointsAllowed) {
 			// Pythagorean Expectation
 			double sum1 = java.lang.StrictMath.pow(pointsScored, 2);
@@ -185,12 +201,15 @@ public class main {
 			double math = sum1/(sum1+sum2);
 			return math;
 		}
+		/* Prediction Percentage */
 		public static String formatedHomePrediction(int pointsScored,int pointsAllowed) {
 			double prediction = returnPrediction(pointsScored,pointsAllowed);
+			homePrediction = prediction;
 			return "Home: " + String.format("%.3f",prediction);
 		}
 		public static String formatedAwayPrediction(int pointsScored,int pointsAllowed) {
 			double prediction = returnPrediction(pointsScored,pointsAllowed);
+			awayPrediction = prediction;
 			return "Away: " + String.format("%.3f",prediction);
 		}
 	}
@@ -1813,6 +1832,81 @@ public class main {
 			super.show();
 		}
 	}
+	public static class winPercentageChart extends JPanel{
+	    BufferedImage image;
+	    final int PAD = 30;
+	    Font font;
+	    NumberFormat numberFormat;
+		public winPercentageChart()
+	    {
+	        font = new Font("Book Antiqua", Font.BOLD, 20);
+	        numberFormat = NumberFormat.getPercentInstance();
+	        addComponentListener(new ComponentAdapter(){});
+	    }
+		protected void paintComponent(Graphics graphics)
+	    {
+	        super.paintComponent(graphics);
+	        Graphics2D graphics2d = (Graphics2D)graphics;
+	        graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	                            RenderingHints.VALUE_ANTIALIAS_ON);
+	        createChartImage();
+	        graphics2d.drawImage(image, 0, 0, this);
+	    }
+	    private void createChartImage()
+	    {
+	        double[] marks = {predictionModel.homePrediction,predictionModel.awayPrediction};
+	        int width = getWidth();
+	        int height = getHeight();
+	        int cp = width/2;
+	        int cq = height/2;
+	        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	        Graphics2D g2 = image.createGraphics();
+	        g2.setPaint(Colors.colors.white);
+	        g2.fillRect(0, 0, width, height);
+	        g2.setPaint(Color.black);
+	        int pie = java.lang.StrictMath.min(width,height) - 2*PAD;
+	        g2.draw(new Ellipse2D.Double(cp - pie/2, cq - pie/2, pie, pie));
+	        double total = 0;
+	        for(int j = 0; j < marks.length; j++)
+	            total += marks[j];
+	        double theta = 0, phi = 0;
+	        double p, q;
+	        for(int j = 0; j < marks.length; j++)
+	        {
+	            p = cp + (pie/2) * java.lang.StrictMath.cos(theta);
+	            q = cq + (pie/2) * java.lang.StrictMath.sin(theta);
+	            g2.draw(new Line2D.Double(cp, cq, p, q));
+	            phi = (marks[j]/total) * 2 * java.lang.StrictMath.PI;
+	            p = cp + (9*pie/24) * java.lang.StrictMath.cos(theta + phi/2);
+	            q = cq + (9*pie/24) * java.lang.StrictMath.sin(theta + phi/2);
+	            g2.setFont(font);
+	            String st = String.valueOf(String.format("%.3f",marks[j]));
+	            FontRenderContext frc = g2.getFontRenderContext();
+	            float textWidth = (float)font.getStringBounds(st, frc).getWidth();
+	            LineMetrics lm = font.getLineMetrics(st, frc);
+	            float sp = (float)(p - textWidth/2);
+	            float sq = (float)(q + lm.getAscent()/2);
+	            g2.drawString(st, sp, sq);
+	            p = cp + (pie/2 + 4*PAD/5) * java.lang.StrictMath.cos(theta + phi/2);
+	            q = cq + (pie/2 + 4*PAD/5) * java.lang.StrictMath.sin(theta+ phi/2);
+	            st = numberFormat.format(marks[j]/total);
+	            textWidth = (float)font.getStringBounds(st, frc).getWidth();
+	            lm = font.getLineMetrics(st, frc);
+	            sp = (float)(p - textWidth/2);
+	            sq = (float)(q + lm.getAscent()/2);
+	            g2.drawString(st, sp, sq);
+	            theta += phi;
+	        }
+	        g2.dispose();
+	    }
+	}
+	public static class winPercentage extends JFrame{
+		public winPercentage() {
+			super.getContentPane().add(new winPercentageChart());
+		    super.setSize(400, 450);
+		    super.setVisible(true);
+		}
+	}
 	public static class currentPoints extends JFrame{
 		static DefaultTableModel model = new DefaultTableModel();
 		static JTable j;
@@ -1897,6 +1991,7 @@ public class main {
 							int awayAllowedNumber = Integer.parseInt(awayAllowed.getText());
 							home.setText(predictionModel.formatedHomePrediction(homeScoredNumber, homeAllowedNumber));
 							away.setText(predictionModel.formatedAwayPrediction(awayScoredNumber, awayAllowedNumber));
+							new winPercentage();
 							win.dispose();
 						}
 					}));
