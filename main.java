@@ -1950,7 +1950,12 @@ public class main {
 		            }
 		    };
 		    for(int i = 0; i < Columns.length; i++) {
-		    	  model.addColumn(Columns[i]);
+		    	if(model.getColumnName(i) == Columns[i]) {
+		    		
+		    	}
+		    	else {
+		    		model.addColumn(Columns[i]);
+		    	}
 		    }
 	    	for(Map.Entry m:scoring.currentPlayerPoints.entrySet()){
 		    	Object[] row = {m.getKey(),m.getValue()};
