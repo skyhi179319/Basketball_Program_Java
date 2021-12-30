@@ -1379,7 +1379,7 @@ public class main {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					JFrame points = new JFrame();
-					points.setBounds(50, 50, 600, 125);
+					points.setBounds(50, 50, 600, 115);
 					points.setVisible(true);
 					JPanel northButtonPanel = new JPanel();
 					JPanel southButtonPanel = new JPanel();
