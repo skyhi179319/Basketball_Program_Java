@@ -262,7 +262,7 @@ public class main {
 			JScrollPane sp = new JScrollPane(j);
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
-			super.show();
+			super.setVisible(true);
 			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
 				j.addRowSelectionInterval(0, 0);
 			}
@@ -326,7 +326,7 @@ public class main {
 			JScrollPane sp = new JScrollPane(j);
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
-			super.show();
+			super.setVisible(true);
 			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
 				j.addRowSelectionInterval(0, 0);
 			}
@@ -389,7 +389,7 @@ public class main {
 			JScrollPane sp = new JScrollPane(j);
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
-			super.show();
+			super.setVisible(true);
 			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
 				j.addRowSelectionInterval(0, 0);
 			}
@@ -451,7 +451,7 @@ public class main {
 			JScrollPane sp = new JScrollPane(j);
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.add(sp);
-			super.show();
+			super.setVisible(true);
 			if(functions.returnMax(j) == Integer.valueOf(String.valueOf(j.getValueAt(0, 5)))) {
 				j.addRowSelectionInterval(0, 0);
 			}
@@ -1161,10 +1161,10 @@ public class main {
 			super.setTitle("Console");
 			super.setBounds(50, 50, 700, 400);
 			JPanel consoleArea = new JPanel();
-			consoleDisplay.disable();
+			consoleDisplay.setEditable(false);
 			consoleArea.add(consoleDisplay);
 			super.getContentPane().add(consoleArea, BorderLayout.CENTER);
-			super.show();
+			super.setVisible(true);
 		}
 	}
 	public static class playbook extends JFrame{
@@ -1217,7 +1217,7 @@ public class main {
 		    JScrollPane sp = new JScrollPane(j);
 			sp.getVerticalScrollBar().setBackground(Colors.colors.lightblue);
 			super.getContentPane().add(sp, BorderLayout.CENTER);
-			super.show();
+			super.setVisible(true);
 		}
 	}
 	public static class playDisplay extends JFrame{
@@ -1362,13 +1362,13 @@ public class main {
 			set.add(setAway);
 			set.add(setNames);
 			enterTeamsDialog.getContentPane().add(set,BorderLayout.CENTER);
-			enterTeamsDialog.show();
+			enterTeamsDialog.setVisible(true);
 			/* Program */
 			JPanel panel = new JPanel();
 			JPanel panel2 = new JPanel();
 			super.setBounds(50, 50, 500, 500);
 			super.setTitle("Scoring");
-			super.show();
+			super.setVisible(true);
 			//panel.setLayout(new GridLayout(1,2));
 			// row 1
 			panel.add(homeTeamNameLabel);
@@ -1380,7 +1380,7 @@ public class main {
 				public void mouseClicked(MouseEvent e) {
 					JFrame points = new JFrame();
 					points.setBounds(50, 50, 600, 125);
-					points.show();
+					points.setVisible(true);
 					JPanel northButtonPanel = new JPanel();
 					JPanel southButtonPanel = new JPanel();
 					JPanel centerButtonPanel = new JPanel();
@@ -1550,7 +1550,7 @@ public class main {
 				else {
 					
 					if(benchEdit.players.size() == 0 || !benchEdit.players.containsKey(Name)) {
-						bench.show();
+						bench.setVisible(true);
 						bench.setBounds(50, 50, 600, 500);
 						return "No data available";
 					}	
@@ -1679,7 +1679,7 @@ public class main {
 		public management() {
 			super.setTitle("Management");
 			super.setBounds(100, 100, 500, 500);
-			super.show();
+			super.setVisible(true);
 			super.getContentPane().add(new managementTable(),BorderLayout.CENTER);
 		}
 	}
@@ -1780,7 +1780,7 @@ public class main {
 					int row = table.getSelectedRow();
 					if(benchEdit.players.size() == 0 || !benchEdit.players.containsKey(table.getValueAt(row, 0).toString())) {
 						JFrame frame = new JFrame();
-						frame.show();
+						frame.setVisible(true);
 						frame.setBounds(50, 50, 600, 300);
 						Components.Label game1Label = new Components.Label("Game 1:", Colors.colors.Black);
 						Components.Textfield game1 = new Components.Textfield(10, Colors.colors.Black, Colors.colors.Black);
@@ -1829,7 +1829,7 @@ public class main {
 			if(button.isSelected() == true) {
 				super.dispose();
 			}
-			super.show();
+			super.setVisible(true);
 		}
 	}
 	public static class winPercentageChart extends JPanel{
@@ -1938,7 +1938,7 @@ public class main {
 		public currentPoints() {
 			super.setBounds(10, 10, 500, 550);
 			super.setTitle("Player Points");
-			super.show();
+			super.setVisible(true);
 			JPanel center = new JPanel();
 			JPanel south = new JPanel();
 			Components.Label home = new Components.Label("", Colors.colors.Black);
